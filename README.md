@@ -20,3 +20,7 @@
 ## Classes condicionais
 
 - npm i clsx
+
+## Zustand
+
+- npm i zustand
