@@ -24,3 +24,15 @@
 ## Zustand
 
 - npm i zustand
+
+## KeybordAwareScrollView
+
+- npm i react-native-keyboard-aware-scroll-view --save
+
+## ExpoAsyncStorage
+
+- npx expo install @react-native-async-storage/async-storage
+
+## Emojis
+
+- [GetEmoji](https://getemoji.com)

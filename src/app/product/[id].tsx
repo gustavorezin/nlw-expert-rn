@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useNavigation } from "expo-router";
+import { Redirect, useLocalSearchParams, useNavigation } from "expo-router";
 import { Image, Text, View } from "react-native";
 
 import { PRODUCTS } from "@/utils/data/products";
@@ -13,11 +13,15 @@ export default function Product() {
   const cartStore = useCartStore();
   const navigation = useNavigation();
 
-  const product = PRODUCTS.filter((item) => item.id === id)[0];
+  const product = PRODUCTS.find((product) => product.id === id);
 
   function handleAddToCart() {
-    cartStore.add(product);
+    cartStore.add(product!); // "!" garante que vai ter
     navigation.goBack();
+  }
+
+  if (!product) {
+    return <Redirect href="/" />;
   }
 
   return (
@@ -29,6 +33,8 @@ export default function Product() {
       />
 
       <View className="p-5 mt-8 flex-1">
+        <Text className="text-white text-xl font-heading">{product.title}</Text>
+
         <Text className="text-lime-400 text-2xl font-heading my-2">
           {formatCurrency(product.price)}
         </Text>
@@ -37,14 +43,13 @@ export default function Product() {
         </Text>
         {product.ingredients.map((ingredient) => (
           <Text
-            key={ingredient}
             className="text-slate-400 font-body text-base leading-6"
+            key={ingredient}
           >
             {"\u2022"} {ingredient}
           </Text>
         ))}
       </View>
-
       <View className="p-5 pb-8 gap-5">
         <Button onPress={handleAddToCart}>
           <Button.Icon>
